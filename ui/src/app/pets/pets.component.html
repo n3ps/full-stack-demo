@@ -1,0 +1,29 @@
+<div *ngIf="pets">
+
+  <div class="d-flex justify-content-between mb-4">
+    <h3 class="title">Pets available: <span>{{pets?.length}}</span></h3>
+    <button (click)="addPet()" class="btn btn-primary">Add Pet</button>
+  </div>
+
+  <div class="columns row">
+    <div *ngFor="let p of pets" class="column col-4">      
+      <div class="card mb-4">
+        <img [src]="renderUrl(p.photoUrl)" [alt]="'Image of ' + p.name" class="card-img-top">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h4 class="card-title">{{p.name}}</h4>
+            <span class="small-text">{{getCategory(p.categoryId)}}</span>
+          </div>
+          <div class="card-text d-flex justify-content-between align-items-center">
+            <span [ngClass]="statusClass(p.status)">{{p.status | titlecase}}</span>
+            <a [routerLink]="['/edit/', p.id]" class="btn btn-outline-secondary btn-sm">Edit</a>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p *ngIf="!pets">{{ errorMessage }}</p>
